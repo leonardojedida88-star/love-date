@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Date ❤️</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Floating Hearts -->
+    <div class="hearts"></div>
+
+    <!-- STEP 1 -->
+    <div id="openingPage">
+
+        <h1 class="title">💕 A Special Surprise 💕</h1>
+
+        <div id="envelope">💌</div>
+
+        <p class="hint">Click the envelope</p>
+
+    </div>
+
+    <!-- STEP 2 -->
+    <div id="lovePage" class="hidden">
+
+        <div class="card">
+
+            <h1>💖 Will You Go on a Date With Me? 💖</h1>
+
+            <p class="message">
+                I planned something special just for us.
+                <br><br>
+                Please choose our perfect date and time. ❤️
+            </p>
+
+            <div class="picker">
+
+                <label>📅 Choose Our Date</label>
+
+                <input
+                    type="date"
+                    id="datePicker"
+                >
+
+            </div>
+
+            <div class="picker">
+
+                <label>🕒 Choose Our Time</label>
+
+                <input
+                    type="time"
+                    id="timePicker"
+                >
+
+            </div>
+
+            <div class="buttons">
+
+                <button id="yesBtn">
+                    YES ❤️
+                </button>
+
+                <button id="noBtn">
+                    NO 😢
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <!-- STEP 3 -->
+<div id="successPage" class="hidden">
+
+    <div class="success-card">
+
+        <h1>🎉 YAY!! ❤️</h1>
+
+        <h2>I knew you'd say YES! 🥰</h2>
+
+        <p class="date-result"></p>
+
+        <div class="big-heart">💖</div>
+
+    </div>
+
+</div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
