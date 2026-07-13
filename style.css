@@ -1,120 +1,364 @@
-// ==========================
-// GET ELEMENTS
-// ==========================
+/* =========================
+   RESET
+========================= */
 
-const openingPage = document.getElementById("openingPage");
-const lovePage = document.getElementById("lovePage");
-const successPage = document.getElementById("successPage");
-
-const envelope = document.getElementById("envelope");
-
-const yesBtn = document.getElementById("yesBtn");
-const noBtn = document.getElementById("noBtn");
-
-const datePicker = document.getElementById("datePicker");
-const timePicker = document.getElementById("timePicker");
-
-const result = document.querySelector(".date-result");
-
-// ==========================
-// INITIAL STATE
-// ==========================
-
-openingPage.classList.remove("hidden");
-lovePage.classList.add("hidden");
-successPage.classList.add("hidden");
-
-// ==========================
-// OPEN ENVELOPE
-// ==========================
-
-envelope.addEventListener("click", () => {
-
-    envelope.innerHTML = "💖";
-
-    setTimeout(() => {
-
-        openingPage.classList.add("hidden");
-        lovePage.classList.remove("hidden");
-
-    }, 700);
-
-});
-
-// ==========================
-// NO BUTTON ESCAPES
-// ==========================
-
-const noTexts = [
-    "NO 😢",
-    "Are you sure? 🥺",
-    "Really? 😭",
-    "Think Again ❤️",
-    "Impossible 😂",
-    "Catch Me 😜"
-];
-
-let textIndex = 0;
-
-noBtn.addEventListener("mouseenter", () => {
-
-    const maxX = window.innerWidth - noBtn.offsetWidth;
-    const maxY = window.innerHeight - noBtn.offsetHeight;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    noBtn.style.position = "fixed";
-    noBtn.style.left = randomX + "px";
-    noBtn.style.top = randomY + "px";
-
-    textIndex++;
-
-    if (textIndex >= noTexts.length) {
-        textIndex = 0;
-    }
-
-    noBtn.textContent = noTexts[textIndex];
-
-});
-
-// ==========================
-// YES BUTTON
-// ==========================
-
-function acceptDate() {
-
-    if (datePicker.value === "" || timePicker.value === "") {
-
-        alert("❤️ Please choose our date and time first.");
-
-        return;
-
-    }
-
-    lovePage.classList.add("hidden");
-    successPage.classList.remove("hidden");
-
-    result.innerHTML =
-        `
-        <h3>Our Date is Set! 💕</h3>
-
-        <br>
-
-        📅 <b>${datePicker.value}</b>
-
-        <br><br>
-
-        🕒 <b>${timePicker.value}</b>
-
-        <br><br>
-
-        I can't wait to see you! ❤️
-        `;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
 }
 
-// Auto accept when mouse touches YES
-yesBtn.addEventListener("mouseenter", acceptDate);
+body{
+    min-height:100vh;
+    overflow:hidden;
+    background:linear-gradient(135deg,#ff9ecf,#ffc4dd,#ffd6e8);
+    position:relative;
+}
 
-// Also works when clicked (for mobile)
-yesBtn.addEventListener("click", acceptDate);
+/* =========================
+   HIDDEN
+========================= */
+
+.hidden{
+    display:none !important;
+}
+
+/* =========================
+   FLOATING HEARTS
+========================= */
+
+.hearts::before,
+.hearts::after{
+    content:"❤️ 💖 💕 💗 💘 ❤️ 💖";
+    position:fixed;
+    left:0;
+    width:100%;
+    font-size:30px;
+    opacity:.25;
+    animation:float 15s linear infinite;
+    pointer-events:none;
+}
+
+.hearts::after{
+    animation-delay:7s;
+}
+
+@keyframes float{
+
+    from{
+        transform:translateY(110vh);
+    }
+
+    to{
+        transform:translateY(-120vh);
+    }
+
+}
+
+/* =========================
+   OPENING PAGE
+========================= */
+
+#openingPage{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    z-index:10;
+}
+
+.title{
+
+    color:white;
+    font-size:48px;
+    text-shadow:0 0 15px hotpink;
+    margin-bottom:40px;
+
+}
+
+#envelope{
+
+    font-size:100px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    animation:bounce 2s infinite;
+
+}
+
+#envelope:hover{
+
+    transform:scale(1.15);
+
+}
+
+.hint{
+
+    margin-top:20px;
+
+    color:white;
+
+    font-size:22px;
+
+    animation:blink 1s infinite;
+
+}
+
+@keyframes bounce{
+
+    0%,100%{
+
+        transform:translateY(0);
+
+    }
+
+    50%{
+
+        transform:translateY(-15px);
+
+    }
+
+}
+
+@keyframes blink{
+
+    50%{
+
+        opacity:.4;
+
+    }
+
+}
+
+/* =========================
+   LOVE PAGE
+========================= */
+
+#lovePage{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:9;
+
+}
+
+.card{
+
+    width:420px;
+
+    background:white;
+
+    padding:35px;
+
+    border-radius:25px;
+
+    box-shadow:0 15px 40px rgba(255,105,180,.35);
+
+    text-align:center;
+
+    animation:pop .5s;
+
+}
+
+.card h1{
+
+    color:#ff3d8b;
+    margin-bottom:20px;
+
+}
+
+.message{
+
+    margin-bottom:30px;
+    color:#555;
+    line-height:1.6;
+
+}
+
+.picker{
+
+    margin:20px 0;
+    text-align:left;
+
+}
+
+.picker label{
+
+    display:block;
+
+    margin-bottom:8px;
+
+    color:#ff3d8b;
+
+    font-weight:bold;
+
+}
+
+.picker input{
+
+    width:100%;
+
+    padding:12px;
+
+    border:2px solid pink;
+
+    border-radius:10px;
+
+    font-size:16px;
+
+}
+
+.buttons{
+
+    margin-top:30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+}
+
+.buttons button{
+
+    width:140px;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:50px;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.3s;
+
+}
+
+#yesBtn{
+
+    background:#ff3d8b;
+
+    color:white;
+
+}
+
+#yesBtn:hover{
+
+    transform:scale(1.05);
+
+}
+
+#noBtn{
+
+    background:#ddd;
+
+}
+
+/* =========================
+   SUCCESS PAGE
+========================= */
+
+#successPage{
+
+    position:fixed;
+    inset:0;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    z-index:11;
+
+}
+
+.success-card{
+
+    width:450px;
+
+    background:white;
+
+    padding:40px;
+
+    border-radius:25px;
+
+    text-align:center;
+
+    box-shadow:0 20px 40px rgba(0,0,0,.2);
+
+    animation:pop .5s;
+
+}
+
+.success-card h1{
+
+    color:#ff2d7a;
+    font-size:45px;
+
+}
+
+.success-card h2{
+
+    margin:20px 0;
+
+    color:#444;
+
+}
+
+.date-result{
+
+    margin-top:20px;
+
+    font-size:20px;
+
+    color:#666;
+
+}
+
+.big-heart{
+
+    font-size:90px;
+
+    margin-top:25px;
+
+    animation:bounce 1s infinite;
+
+}
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes pop{
+
+    from{
+
+        opacity:0;
+        transform:scale(.7);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:scale(1);
+
+    }
+
+}
