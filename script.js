@@ -92,6 +92,28 @@ function acceptDate() {
 
     }
 
+     const templateParams = {
+    date: datePicker.value,
+    time: timePicker.value,
+    message: "She accepted your date invitation! ❤️"
+};
+
+emailjs.send(
+    "service_8v32k5n",
+    "template_rkmg4lg",
+    templateParams
+)
+.then(() => {
+
+    console.log("Email sent!");
+
+})
+.catch((error) => {
+
+    console.error("Email failed:", error);
+
+});
+
     lovePage.classList.add("hidden");
     successPage.classList.remove("hidden");
 
